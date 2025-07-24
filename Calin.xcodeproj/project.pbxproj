@@ -10,9 +10,22 @@
 		E0D7F7CF2E2E1E34005A5CB3 /* Calin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		E099254A2E2F245800BB5072 /* Exceptions for "Calin" folder in "Calin" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Supporting Files/Info.plist",
+			);
+			target = E0D7F7CE2E2E1E34005A5CB3 /* Calin */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		E0D7F7D12E2E1E34005A5CB3 /* Calin */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				E099254A2E2F245800BB5072 /* Exceptions for "Calin" folder in "Calin" target */,
+			);
 			path = Calin;
 			sourceTree = "<group>";
 		};
@@ -130,11 +143,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Calin/Calin.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PQADV43RTW;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Calin/Supporting Files/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Calin;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
@@ -162,11 +177,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Calin/Calin.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PQADV43RTW;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Calin/Supporting Files/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Calin;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";

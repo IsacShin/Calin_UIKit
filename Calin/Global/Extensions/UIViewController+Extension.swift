@@ -20,4 +20,12 @@ extension UIViewController {
         }
         return viewController
     }
+    
+    static func instantiateFromNib() -> Self {
+        return Self.init(nibName: String(describing: Self.self), bundle: nil)
+    }
+    
+    static var nibName: String {
+        return String(describing: Self.self)
+    }
 }

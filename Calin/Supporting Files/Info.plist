@@ -2,8 +2,16 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>NanumDaHaengCe.ttf</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
+		<key>Fonts</key>
+		<array>
+			<string>NanumDaHaengCe.ttf</string>
+		</array>
 		<key>UIApplicationSupportsMultipleScenes</key>
 		<false/>
 		<key>UISceneConfigurations</key>
@@ -18,10 +26,6 @@
 				</dict>
 			</array>
 		</dict>
-		<key>Fonts provided by application</key>
-		<array>
-			<string>NanumDaHaengCe.ttf</string>
-		</array>
 	</dict>
 </dict>
 </plist>

@@ -8,57 +8,63 @@
 import UIKit
 import Combine
 
-final class SplashViewModel {
-    private(set) var isScaled = PassthroughSubject<Bool, Never>()
-    private(set) var animationFinished: PassthroughSubject<Bool, Never> = PassthroughSubject<Bool, Never>()
-    
-    func viewDidAppear() {
-        Task {
-            try await Task.sleep(for: .seconds(0.75))
-            self.isScaled.send(true)
-            
-            try await Task.sleep(for: .seconds(0.75))
-            self.animationFinished.send(true)
-        }
-    }
-}
-
 final class SplashViewController: UIViewController {
-    @IBOutlet weak var logoImageView: UIImageView!
-
-    var viewModel: SplashViewModel!
-    var cancellables = Set<AnyCancellable>()
     
+    // MARK: - Properties
+    
+    @IBOutlet weak var logoImageView: UIImageView!
+    weak var coordinator: SplashCoordinator?
+    var viewModel: SplashViewModel?
+    var onAnimationFinished: (() -> Void)?
+    private var cancellables = Set<AnyCancellable>()
+    
+    // MARK: - Life Cycle
+    
+    convenience init() {
+        self.init(nibName: SplashViewController.nibName, bundle: nil)
+    }
+
+    deinit {
+        print("🔥 SplashCoordinator deinit")
+        coordinator?.finish()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        setBindings()
+        setupBinding()
+        print("👀 self in SplashVC:", Unmanaged.passUnretained(self).toOpaque())
+        print("👀 coordinator:", coordinator == nil ? "❌ nil" : "✅ set")
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        viewModel.viewDidAppear()
+        viewModel?.viewDidAppear()
     }
     
-    func configure(vm: SplashViewModel) {
+    // MARK: - Methods
+    
+    func configure(vm: SplashViewModel?) {
         viewModel = vm
     }
     
-    private func setBindings() {
-        viewModel.isScaled
+    private func setupBinding() {
+        viewModel?.isScaled
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] isScaled in
                 guard let self = self else { return }
                 let scale: CGFloat = isScaled ? 1.2 : 1.0
-                self.logoImageView.transform = CGAffineTransform(scaleX: scale, y: scale)
+                UIView.animate(withDuration: 0.35) {
+                    self.logoImageView.transform = CGAffineTransform(scaleX: scale, y: scale)
+                }
             })
             .store(in: &cancellables)
         
-        viewModel.animationFinished
+        viewModel?.animationFinished
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] isFinished in
                 guard let self = self else { return }
                 if isFinished {
-                    // 코디네이터를 이용한 화면이동
+                    coordinator?.goHome()
                 }
                 
             })
