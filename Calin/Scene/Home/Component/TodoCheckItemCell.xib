@@ -20,8 +20,8 @@
                         <rect key="frame" x="20" y="13.666666666666664" width="19.333333333333329" height="17.333333333333336"/>
                         <color key="tintColor" systemColor="systemRedColor"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t55-PR-yRo">
-                        <rect key="frame" x="49.333333333333336" y="22" width="0.0" height="0.0"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t55-PR-yRo">
+                        <rect key="frame" x="49.333333333333336" y="8" width="0.0" height="28"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -41,7 +41,10 @@
                     <constraint firstItem="qdr-rv-edb" firstAttribute="centerX" secondItem="crK-tY-zqe" secondAttribute="centerX" id="J6c-bu-lJJ"/>
                     <constraint firstItem="Yxo-8P-eUm" firstAttribute="centerY" secondItem="crK-tY-zqe" secondAttribute="centerY" id="KLq-34-Lmu"/>
                     <constraint firstItem="qdr-rv-edb" firstAttribute="centerY" secondItem="crK-tY-zqe" secondAttribute="centerY" id="g3t-nm-ptk"/>
+                    <constraint firstItem="t55-PR-yRo" firstAttribute="top" secondItem="crK-tY-zqe" secondAttribute="top" constant="8" id="kPA-aJ-aIK"/>
                     <constraint firstItem="Yxo-8P-eUm" firstAttribute="leading" secondItem="crK-tY-zqe" secondAttribute="leading" constant="20" id="mMx-xI-Nmj"/>
+                    <constraint firstAttribute="bottom" secondItem="t55-PR-yRo" secondAttribute="bottom" constant="8" id="r6Q-EE-6eh"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="t55-PR-yRo" secondAttribute="trailing" constant="20" id="tgm-hE-K3O"/>
                     <constraint firstItem="t55-PR-yRo" firstAttribute="leading" secondItem="Yxo-8P-eUm" secondAttribute="trailing" constant="10" id="xe2-bh-f5H"/>
                 </constraints>
             </tableViewCellContentView>

@@ -25,6 +25,7 @@ final class TodoCheckItemCell: UITableViewCell {
     // MARK: - Methods
 
     private func setUI() {
+        selectionStyle = .none
         lineView.isHidden = true
         titleLabel.font = UIFont.nanumDaHaeng(size: 16)
     }
@@ -34,7 +35,7 @@ final class TodoCheckItemCell: UITableViewCell {
                    date: Date,
                    isCompleted: Bool) {
         titleLabel.text = title
-        checkImageView.image = isCompleted ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "circle")
+        checkImageView.image = isCompleted ? UIImage(systemName: "checkmark.square.fill") : UIImage(systemName: "square")
         if date.removeTimeStamp() < Date().removeTimeStamp() && !isCompleted {
             lineView.isHidden = false
         } else {

@@ -14,8 +14,9 @@ final class HomeViewController: UIViewController {
     
     @IBOutlet var homeLabels: [UILabel]!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var EmptyCommentLabel: UILabel!
     
-    var coordinator: HomeCoordinator?
+    weak var coordinator: HomeCoordinator?
     var viewModel: HomeViewModel?
     private var cancellables = Set<AnyCancellable>()
     
@@ -51,7 +52,9 @@ final class HomeViewController: UIViewController {
     private func setupBinding() {
         viewModel?.$todoData
             .receive(on: DispatchQueue.main)
-            .sink { todoDay in
+            .sink { [weak self] todoDay in
+                guard let self = self else { return }
+                self.EmptyCommentLabel.isHidden = todoDay.count > 0 ? true : false
                 self.collectionView.reloadData()
             }
             .store(in: &cancellables)
@@ -89,8 +92,11 @@ final class HomeViewController: UIViewController {
     // MARK: - Actions
     
     @IBAction func actionCalindarButtonPressed(_ sender: Any) {
-        print("캘린더 버튼 클릭")
-        datePickerView.show(in: self.view)
+        coordinator?.startDatePickerViewFlow(presenter: self,
+                                             initialDate: viewModel?.selectedDate ?? Date()) { [weak self] date in
+            guard let self = self else { return }
+            self.viewModel?.updateSelectedDate(date)
+        }
     }
     
     @IBAction func actionGridButtonPressed(_ sender: Any) {
@@ -102,7 +108,7 @@ final class HomeViewController: UIViewController {
     }
     
     @IBAction func actionAddButtonPressed(_ sender: Any) {
-        coordinator?.showAddView()
+        coordinator?.startAddViewFlow()
     }
     
 }
@@ -126,7 +132,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         let spacing: CGFloat = 10
         let totalSpacing = inset * 2 + spacing // 좌우 인셋 + 셀 사이 간격
         let width = (collectionView.bounds.width - totalSpacing) / 2
-        return CGSize(width: width, height: 200)
+        return CGSize(width: width, height: Define.Device.screenHeight / 2.8)
     }
 }
 

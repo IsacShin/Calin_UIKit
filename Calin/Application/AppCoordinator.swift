@@ -9,17 +9,17 @@ import UIKit
 
 class AppCoordinator: BaseCoordinator {
     override func start() {
-        showSplashController()
+        startSplashViewFlow()
     }
 
-    private func showSplashController() {
+    private func startSplashViewFlow() {
         let splashCoordinator = SplashCoordinator(navigationController: navigationController)
         splashCoordinator.delegate = self
         addChild(splashCoordinator)
         splashCoordinator.start()
     }
     
-    private func showHomeController() {
+    private func startHomeViewFlow() {
         let homeCoordinator = HomeCoordinator(navigationController: navigationController)
         addChild(homeCoordinator)
         homeCoordinator.start()
@@ -28,6 +28,6 @@ class AppCoordinator: BaseCoordinator {
 
 extension AppCoordinator: SplashCoordinatorDelegate {
     func goHome() {
-        showHomeController()
+        startHomeViewFlow()
     }
 }

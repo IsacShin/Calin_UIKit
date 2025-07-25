@@ -15,7 +15,7 @@ final class HomeCoordinator: BaseCoordinator {
         navigationController.viewControllers = [homeViewController]
     }
     
-    func showAddView() {
+    func startAddViewFlow() {
         let addCoordinator = AddCoordinator(navigationController: self.navigationController)
         addChild(addCoordinator)
         addCoordinator.start()

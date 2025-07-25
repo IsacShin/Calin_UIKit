@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController" customModule="Calin" customModuleProvider="target">
             <connections>
+                <outlet property="EmptyCommentLabel" destination="pdb-Nv-FpZ" id="eJN-og-iQS"/>
                 <outlet property="collectionView" destination="nGG-ft-lw1" id="b5X-ip-WJL"/>
                 <outlet property="view" destination="Bzr-Tc-nqI" id="pFr-Xc-Cy1"/>
                 <outletCollection property="homeLabels" destination="pdb-Nv-FpZ" collectionClass="NSMutableArray" id="j5R-ts-HE3"/>
@@ -55,6 +56,9 @@
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tlY-b5-Nyd">
                                     <rect key="frame" x="0.0" y="0.0" width="112.33333333333333" height="30"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <connections>
+                                        <action selector="actionCalindarButtonPressed:" destination="-1" eventType="touchUpInside" id="BrO-fq-8Tx"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -92,6 +96,9 @@
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YUr-dF-lfQ">
                                                     <rect key="frame" x="0.0" y="0.0" width="28" height="30.666666666666668"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <connections>
+                                                        <action selector="actionGridButtonPressed:" destination="-1" eventType="touchUpInside" id="bHQ-6h-1XT"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -120,6 +127,9 @@
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vHU-vs-8cy">
                                                     <rect key="frame" x="0.0" y="0.0" width="50" height="30.666666666666668"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <connections>
+                                                        <action selector="actionTodayButtonPressed:" destination="-1" eventType="touchUpInside" id="Gya-BY-fhw"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -167,6 +177,26 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="nGG-ft-lw1">
+                    <rect key="frame" x="0.0" y="172" width="393" height="612"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="CAT-BP-MLF">
+                        <size key="itemSize" width="128" height="128"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                    <cells>
+                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="oSf-H2-Azp">
+                            <rect key="frame" x="0.0" y="0.0" width="127.99999999999997" height="128"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="OlD-Nn-OaM">
+                                <rect key="frame" x="0.0" y="0.0" width="127.99999999999997" height="128"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </collectionViewCellContentView>
+                        </collectionViewCell>
+                    </cells>
+                </collectionView>
                 <view alpha="0.80000001192092896" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ber-Wh-Hay">
                     <rect key="frame" x="319" y="710" width="54" height="54"/>
                     <subviews>
@@ -177,6 +207,9 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HRm-Kv-et0">
                             <rect key="frame" x="0.0" y="0.0" width="54" height="54"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <connections>
+                                <action selector="actionAddButtonPressed:" destination="-1" eventType="touchUpInside" id="J5j-pm-4AN"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -202,26 +235,6 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="nGG-ft-lw1">
-                    <rect key="frame" x="0.0" y="172" width="393" height="612"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="CAT-BP-MLF">
-                        <size key="itemSize" width="128" height="128"/>
-                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                    </collectionViewFlowLayout>
-                    <cells>
-                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="oSf-H2-Azp">
-                            <rect key="frame" x="0.0" y="0.0" width="127.99999999999997" height="128"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="OlD-Nn-OaM">
-                                <rect key="frame" x="0.0" y="0.0" width="127.99999999999997" height="128"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                            </collectionViewCellContentView>
-                        </collectionViewCell>
-                    </cells>
-                </collectionView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="a53-us-Ns6"/>
             <color key="backgroundColor" systemColor="systemGrayColor"/>
