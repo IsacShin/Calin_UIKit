@@ -35,7 +35,7 @@ final class TodoItemCellViewModel {
     }
     
     func toggleItem(at index: Int) {
-        guard var todoDay = todoDay, index < todoDay.items.count else {
+        guard let todoDay = todoDay, index < todoDay.items.count else {
             return
         }
         let checkId = todoDay.id

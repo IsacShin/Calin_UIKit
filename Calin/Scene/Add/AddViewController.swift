@@ -116,6 +116,7 @@ final class AddViewController: UIViewController {
             .sink { [weak self] alertInfo in
                 let alert = UIAlertController(title: nil, message: alertInfo.message, preferredStyle: .alert)
                 let action = UIAlertAction(title: "확인", style: .default) { [weak self] _ in
+                    guard alertInfo.isSuccess else { return }
                     switch alertInfo.actionType {
                     case .updated:
                         self?.coordinator?.didPopAddView()
