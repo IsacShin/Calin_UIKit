@@ -29,6 +29,7 @@ final class DatePickerViewController: UIViewController {
     // MARK: - Properties
     
     @IBOutlet var datePicker: UIDatePicker!
+    @IBOutlet weak var backgroundView: UIView!
     
     weak var coordinator: DatePickerCoordinator?
     weak var delegate: DatePickerViewControllerDelegate?
@@ -50,6 +51,12 @@ final class DatePickerViewController: UIViewController {
         super.viewDidLoad()
         setupBinding()
         setupDatePicker()
+        Task { [weak self] in
+            try await Task.sleep(for: .seconds(0.18))
+            UIView.animate(withDuration: 0.3) { [weak self] in
+                self?.backgroundView.alpha = 0.3
+            }
+        }
     }
     
     // MARK: - Methods
@@ -59,6 +66,7 @@ final class DatePickerViewController: UIViewController {
     }
     
     private func setupDatePicker() {
+        datePicker.minimumDate = Date()
         datePicker.addTarget(self, action: #selector(datePickerValueChanged(_:)), for: .valueChanged)
     }
     
@@ -79,6 +87,12 @@ final class DatePickerViewController: UIViewController {
     
     @IBAction func actionCompleteButtonPressed(_ sender: Any) {
         delegate?.datePickerViewController(didSelect: datePicker.date)
-        self.dismiss(animated: true)
+        Task { [weak self] in
+            UIView.animate(withDuration: 0.3) { [weak self] in
+                self?.backgroundView.alpha = 0
+            }
+            try await Task.sleep(for: .seconds(0.18))
+            self?.dismiss(animated: true)
+        }
     }
 }

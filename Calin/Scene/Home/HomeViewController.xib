@@ -12,8 +12,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController" customModule="Calin" customModuleProvider="target">
             <connections>
-                <outlet property="EmptyCommentLabel" destination="pdb-Nv-FpZ" id="eJN-og-iQS"/>
                 <outlet property="collectionView" destination="nGG-ft-lw1" id="b5X-ip-WJL"/>
+                <outlet property="emptyCommentLabel" destination="pdb-Nv-FpZ" id="eJN-og-iQS"/>
+                <outlet property="listTypeImageView" destination="EtR-cf-YsP" id="ssm-OJ-rQm"/>
                 <outlet property="view" destination="Bzr-Tc-nqI" id="pFr-Xc-Cy1"/>
                 <outletCollection property="homeLabels" destination="pdb-Nv-FpZ" collectionClass="NSMutableArray" id="j5R-ts-HE3"/>
                 <outletCollection property="homeLabels" destination="cSG-FX-nL3" collectionClass="NSMutableArray" id="IaW-WS-r8T"/>

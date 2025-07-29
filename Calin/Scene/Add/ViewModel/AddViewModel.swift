@@ -9,11 +9,22 @@ import Foundation
 import Combine
 
 final class AddViewModel {
+    struct AlertInfo {
+        enum AlertActionType {
+            case created
+            case updated
+            case deleted
+        }
+        let message: String
+        let actionType: AlertActionType
+        let isSuccess: Bool
+    }
+    
     var todoDay: TodoDay?
     @Published private(set) var selectedDate: Date = Date()
     @Published private(set) var todoList: [TodoItem] = []
     
-    private(set) var alertMessage: PassthroughSubject<String, Never> = .init()
+    let alertEvent = PassthroughSubject<AlertInfo, Never>()
     private(set) var isEditing: CurrentValueSubject<Bool, Never> = .init(false)
     
     init(todoDay: TodoDay? = nil) {
@@ -45,7 +56,9 @@ final class AddViewModel {
     
     func insertTodo() async {
         guard !todoList.isEmpty else {
-            alertMessage.send("할 일을 추가해주세요.")
+            alertEvent.send(AlertInfo(message: "할 일을 추가해주세요.",
+                                      actionType: .created,
+                                      isSuccess: false))
             return
         }
         
@@ -55,13 +68,17 @@ final class AddViewModel {
             items: todoList.sorted(by: { $0.createdAt > $1.createdAt }))
 
         await SwiftDataManager.shared.insert(todoDay)
-        alertMessage.send("일정이 추가되었습니다.")
+        alertEvent.send(AlertInfo(message: "일정이 추가되었습니다.",
+                                  actionType: .created,
+                                  isSuccess: true))
     }
     
     func updateTodo() async {
         guard let id = todoDay?.id,
               !todoList.isEmpty else {
-            alertMessage.send("할 일을 추가해주세요.")
+            alertEvent.send(AlertInfo(message: "할 일을 추가해주세요.",
+                                      actionType: .updated,
+                                      isSuccess: false))
             return
         }
         
@@ -69,13 +86,17 @@ final class AddViewModel {
             todoDay.items = todoList.sorted(by: { $0.createdAt > $1.createdAt })
             todoDay.date = selectedDate
         }
-        alertMessage.send("일정이 수정되었습니다.")
+        alertEvent.send(AlertInfo(message: "일정이 수정되었습니다.",
+                                  actionType: .updated,
+                                  isSuccess: true))
     }
     
     func deleteTodo() async {
         guard let todoDay = todoDay else { return }
         await SwiftDataManager.shared.delete(todoDay)
-        alertMessage.send("일정이 삭제되었습니다.")
+        alertEvent.send(AlertInfo(message: "일정이 삭제되었습니다.",
+                                  actionType: .deleted,
+                                  isSuccess: true))
     }
     
 }

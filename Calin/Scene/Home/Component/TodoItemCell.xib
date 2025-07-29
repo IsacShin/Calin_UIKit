@@ -18,7 +18,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zXu-5b-W1v">
-                        <rect key="frame" x="213" y="-8" width="16" height="16"/>
+                        <rect key="frame" x="211" y="-6" width="16" height="16"/>
                         <color key="backgroundColor" systemColor="systemRedColor"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="16" id="9y5-e1-xwX"/>
@@ -112,9 +112,9 @@
                     </tableView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="zXu-5b-W1v" secondAttribute="trailing" constant="-8" id="96Q-3t-NEY"/>
+                    <constraint firstAttribute="trailing" secondItem="zXu-5b-W1v" secondAttribute="trailing" constant="-6" id="96Q-3t-NEY"/>
                     <constraint firstItem="U81-eo-hcR" firstAttribute="top" secondItem="LQ8-fL-aFj" secondAttribute="bottom" constant="20" id="9kD-ZN-vLg"/>
-                    <constraint firstItem="zXu-5b-W1v" firstAttribute="top" secondItem="3mG-Xh-lz5" secondAttribute="top" constant="-8" id="IXn-ts-c70"/>
+                    <constraint firstItem="zXu-5b-W1v" firstAttribute="top" secondItem="3mG-Xh-lz5" secondAttribute="top" constant="-6" id="IXn-ts-c70"/>
                     <constraint firstAttribute="bottom" secondItem="U81-eo-hcR" secondAttribute="bottom" constant="20" id="OwU-ol-iwo"/>
                     <constraint firstItem="LQ8-fL-aFj" firstAttribute="centerX" secondItem="3mG-Xh-lz5" secondAttribute="centerX" id="WtR-BU-KJY"/>
                     <constraint firstItem="LQ8-fL-aFj" firstAttribute="top" secondItem="3mG-Xh-lz5" secondAttribute="top" constant="20" id="g7x-U5-FuP"/>

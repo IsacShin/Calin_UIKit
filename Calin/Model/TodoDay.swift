@@ -12,6 +12,7 @@ import SwiftData
 class TodoDay: @unchecked Sendable {
     @Attribute(.unique) var id: UUID         // 고유 식별자
     var date: Date                           // 할일 날짜
+    @Relationship(inverse: \TodoItem.day)
     var items: [TodoItem] = []               // 할일 리스트
     var deviceId: String                     // 디바이스 UUID
 
@@ -25,6 +26,7 @@ class TodoDay: @unchecked Sendable {
 
 @Model
 class TodoItem {
+    @Relationship var day: TodoDay?
     @Attribute(.unique) var id: UUID         // 고유 식별자
     var title: String                        // 할일
     var isCompleted: Bool                    // 완료 여부

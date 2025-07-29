@@ -14,7 +14,8 @@ final class HomeViewController: UIViewController {
     
     @IBOutlet var homeLabels: [UILabel]!
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var EmptyCommentLabel: UILabel!
+    @IBOutlet weak var emptyCommentLabel: UILabel!
+    @IBOutlet weak var listTypeImageView: UIImageView!
     
     weak var coordinator: HomeCoordinator?
     var viewModel: HomeViewModel?
@@ -34,7 +35,6 @@ final class HomeViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         setCollectionView()
-        setupDatePickerView()
         setupBinding()
     }
     
@@ -54,8 +54,25 @@ final class HomeViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] todoDay in
                 guard let self = self else { return }
-                self.EmptyCommentLabel.isHidden = todoDay.count > 0 ? true : false
+                self.emptyCommentLabel.isHidden = todoDay.count > 0 ? true : false
                 self.collectionView.reloadData()
+            }
+            .store(in: &cancellables)
+        
+        viewModel?.$isGridMode
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isGridMode in
+                guard let self = self else { return }
+                UIView.transition(with: self.collectionView,
+                                  duration: 0.35,
+                                  options: [.transitionCrossDissolve],
+                                  animations: {
+                                        self.collectionView.reloadSections(IndexSet(integer: 0))
+                    self.listTypeImageView.image = isGridMode ? UIImage(systemName: "rectangle.grid.2x2.fill")?
+                        .withTintColor(.white, renderingMode: .alwaysOriginal) :
+                    UIImage(systemName: "rectangle.grid.1x2.fill")?
+                        .withTintColor(.white, renderingMode: .alwaysOriginal)
+                                  })
             }
             .store(in: &cancellables)
     }
@@ -70,10 +87,6 @@ final class HomeViewController: UIViewController {
                 label.textColor = UIColor.black
             }
         }
-    }
-    
-    private func setupDatePickerView() {
-        
     }
     
     private func setCollectionView() {
@@ -92,23 +105,23 @@ final class HomeViewController: UIViewController {
     // MARK: - Actions
     
     @IBAction func actionCalindarButtonPressed(_ sender: Any) {
-        coordinator?.startDatePickerViewFlow(presenter: self,
-                                             initialDate: viewModel?.selectedDate ?? Date()) { [weak self] date in
+        coordinator?.showDataPickerView(presenter: self,
+                                        initialDate: viewModel?.selectedDate ?? Date()) { [weak self] date in
             guard let self = self else { return }
             self.viewModel?.updateSelectedDate(date)
         }
     }
     
     @IBAction func actionGridButtonPressed(_ sender: Any) {
-        
+        viewModel?.actionEvent.send(.actionGridButtonPressed)
     }
     
     @IBAction func actionTodayButtonPressed(_ sender: Any) {
-        
+        viewModel?.actionEvent.send(.actionTodayButtonPressed)
     }
     
     @IBAction func actionAddButtonPressed(_ sender: Any) {
-        coordinator?.startAddViewFlow()
+        coordinator?.showAddView()
     }
     
 }
@@ -123,7 +136,8 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: TodoItemCell = collectionView.dequeue(cellType: TodoItemCell.self, for: indexPath)
-        cell.configure(vm: TodoItemCellViewModel(todoDayItem: viewModel?.todoData[safe: indexPath.item]))
+        cell.delegate = self
+        cell.configure(vm: TodoItemCellViewModel(todoDay: viewModel?.todoData[safe: indexPath.item]))
         return cell
     }
     
@@ -131,14 +145,20 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         let inset: CGFloat = 8
         let spacing: CGFloat = 10
         let totalSpacing = inset * 2 + spacing // 좌우 인셋 + 셀 사이 간격
-        let width = (collectionView.bounds.width - totalSpacing) / 2
-        return CGSize(width: width, height: Define.Device.screenHeight / 2.8)
+        let width = viewModel?.isGridMode ?? true ? (collectionView.bounds.width - totalSpacing) / 2 : (collectionView.bounds.width - totalSpacing)
+        return CGSize(width: width, height: Define.Device.screenHeight / (viewModel?.isGridMode ?? true ? 2.8 : 2))
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let todoDay = viewModel?.todoData[safe: indexPath.item] else { return }
+        coordinator?.goDetail(for: todoDay)
     }
 }
 
-#Preview {
-    let homeViewController: HomeViewController = HomeViewController.getViewController(fromStoryboard: "Home")
-    let viewModel = HomeViewModel()
-    homeViewController.configure(viewModel: viewModel)
-    return homeViewController
+extension HomeViewController: TodoItemCellDelegate {
+    func didSelectTodoItem(id: UUID?) {
+        guard let id = id,
+        let todoDay = viewModel?.todoData.filter({ $0.id == id }).first else { return }
+        coordinator?.goDetail(for: todoDay)
+    }
 }

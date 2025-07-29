@@ -9,6 +9,10 @@ import UIKit
 import SwiftUI
 import Combine
 
+protocol TodoItemCellDelegate: NSObject {
+    func didSelectTodoItem(id: UUID?)
+}
+
 final class TodoItemCell: UICollectionViewCell {
     
     // MARK: - Properties
@@ -17,31 +21,25 @@ final class TodoItemCell: UICollectionViewCell {
     @IBOutlet weak var todoCheckTableView: UITableView!
     
     var viewModel: TodoItemCellViewModel?
+    weak var delegate: TodoItemCellDelegate?
     private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Life Cycle
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        setUI()
+        setupUI()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        cancellables.removeAll()
+        titleLabel.text = nil
     }
     
     // MARK: - Methods
     
-    private func setBindings() {
-        // 중복 바인딩 방지
-        cancellables.forEach { $0.cancel() }
-        cancellables.removeAll()
-        
-        viewModel?.$todoDayItem
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] todoDayItem in
-                self?.todoCheckTableView.reloadData()
-            }
-            .store(in: &cancellables)
-    }
-    
-    private func setUI() {
+    private func setupUI() {
         setupBackground()
         setupTableView()
         titleLabel.font = .nanumDaHaeng(size: 16)
@@ -70,10 +68,20 @@ final class TodoItemCell: UICollectionViewCell {
             backgroundView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
-        
+    
+    private func setupBinding() {
+        viewModel?.$todoDay
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] todoDay in
+                self?.titleLabel.text = todoDay?.date.toMonthDayString()
+                self?.todoCheckTableView.reloadData()
+            }
+            .store(in: &cancellables)
+    }
+      
     func configure(vm: TodoItemCellViewModel?) {
-        self.viewModel = vm
-        setBindings()
+        viewModel = vm
+        setupBinding()
     }
 }
 
@@ -82,19 +90,19 @@ final class TodoItemCell: UICollectionViewCell {
 extension TodoItemCell: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel?.todoDayItem?.items.count ?? 0
+        return viewModel?.todoDay?.items.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: TodoCheckItemCell = tableView.dequeue(cellType: TodoCheckItemCell.self, for: indexPath)
-        if let item = viewModel?.todoDayItem?.items[indexPath.row] {
-            cell.configure(with: item.title, date: item.createdAt, isCompleted: item.isCompleted)
+        if let item = viewModel?.todoDay?.items[indexPath.row] {
+            cell.configure(with: item.title, date: viewModel?.todoDay?.date ?? Date(), isCompleted: item.isCompleted)
         }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let index = indexPath.row
-        viewModel?.toggleItem(at: index)
+        let id = viewModel?.todoDay?.id
+        delegate?.didSelectTodoItem(id: id)
     }
 }

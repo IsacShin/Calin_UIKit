@@ -9,12 +9,28 @@ import Combine
 import Foundation
 
 final class HomeViewModel {
+    enum ActionEvent {
+        case actionGridButtonPressed
+        case actionTodayButtonPressed
+    }
     @Published private(set) var todoData: [TodoDay] = []
+    @Published private(set) var isGridMode: Bool = true
+
+    private(set) var actionEvent: PassthroughSubject<ActionEvent, Never> = .init()
     private(set) var selectedDate: Date = Date()
     private var cancellables = Set<AnyCancellable>()
-        
+    
     init() {
-        
+        actionEvent
+            .sink { [weak self ] action in
+                switch action {
+                case .actionGridButtonPressed:
+                    self?.isGridMode.toggle()
+                case .actionTodayButtonPressed:
+                    self?.updateSelectedDate(Date())
+                }
+            }
+            .store(in: &cancellables)
     }
     
     func viewWillAppear() {
@@ -25,12 +41,12 @@ final class HomeViewModel {
         selectedDate = date
         Task { [weak self] in
             guard let self = self else { return }
-            self.todoData = await self.fetchToMonthData(date: selectedDate)
+            await self.fetchToMonthData(date: selectedDate)
         }
     }
     
     /// 해당월의 일정 데이터 조회 및 이전 미완료 일정 복사 함수
-    func fetchToMonthData(date: Date) async -> [TodoDay] {
+    func fetchToMonthData(date: Date) async {
         self.todoData = []
         let today = Date().removeTimeStamp()
         let originalTodos = await SwiftDataManager.shared.fetchTodoMonth(forMonthOf: date)
@@ -90,7 +106,7 @@ final class HomeViewModel {
             }
         }
         
-        return await SwiftDataManager.shared.fetchTodoMonth(forMonthOf: date)
+        self.todoData = await SwiftDataManager.shared.fetchTodoMonth(forMonthOf: date)
     }
     
 }

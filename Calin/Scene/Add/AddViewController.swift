@@ -111,15 +111,20 @@ final class AddViewController: UIViewController {
             }
             .store(in: &cancellables)
         
-        viewModel?.alertMessage
+        viewModel?.alertEvent
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] message in
-                guard let self = self else { return }
-                let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "확인", style: .default))
-                self.present(alert, animated: true)
-                
-                // TODO: - Dismiss 필요
+            .sink { [weak self] alertInfo in
+                let alert = UIAlertController(title: nil, message: alertInfo.message, preferredStyle: .alert)
+                let action = UIAlertAction(title: "확인", style: .default) { [weak self] _ in
+                    switch alertInfo.actionType {
+                    case .updated:
+                        self?.coordinator?.didPopAddView()
+                    case .deleted, .created:
+                        self?.coordinator?.didRootPopAddView()
+                    }
+                }
+                alert.addAction(action)
+                self?.present(alert, animated: true)
             }
             .store(in: &cancellables)
     }
@@ -128,8 +133,8 @@ final class AddViewController: UIViewController {
     // MARK: - Actions
     
     @IBAction func actionCalindarButtonPressed(_ sender: Any) {
-        coordinator?.startDatePickerViewFlow(presenter: self,
-                                             initialDate: viewModel?.selectedDate ?? Date()) { [weak self] date in
+        coordinator?.showDataPickerView(presenter: self,
+                                        initialDate: viewModel?.selectedDate ?? Date()) { [weak self] date in
             guard let self = self else { return }
             self.viewModel?.updateSelectedDate(date)
         }

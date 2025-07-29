@@ -48,7 +48,7 @@ class BaseCoordinator: Coordinator {
 }
 
 extension BaseCoordinator {
-    func startDatePickerViewFlow(presenter: UIViewController?,
+    func showDataPickerView(presenter: UIViewController?,
                                  initialDate: Date,
                                  onDatePicked: ((Date) -> Void)? = nil) {
         let datePickerViewCoordinator = DatePickerCoordinator(navigationController: self.navigationController,

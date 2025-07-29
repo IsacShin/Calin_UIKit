@@ -18,7 +18,7 @@ class SwiftDataManager {
 
     private init() {
         // App Group ID
-        let appGroupID = "group.com.isac.DoingApp"
+        let appGroupID = "group.com.isac.calin"
         
         guard let sharedURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroupID) else {
             fatalError("App Group 경로를 찾을 수 없습니다")

@@ -15,9 +15,16 @@ final class HomeCoordinator: BaseCoordinator {
         navigationController.viewControllers = [homeViewController]
     }
     
-    func startAddViewFlow() {
+    func showAddView() {
         let addCoordinator = AddCoordinator(navigationController: self.navigationController)
         addChild(addCoordinator)
         addCoordinator.start()
+    }
+    
+    func goDetail(for todoDay: TodoDay) {
+        let detailCoordinator = DetailCoordinator(navigationController: self.navigationController,
+                                                  todoDay: todoDay)
+        addChild(detailCoordinator)
+        detailCoordinator.start()
     }
 }

@@ -9,28 +9,28 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TodoAddItemCell" rowHeight="58" id="QB3-ti-AIU" customClass="TodoAddItemCell" customModule="Calin" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="393" height="58"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TodoAddItemCell" rowHeight="55" id="QB3-ti-AIU" customClass="TodoAddItemCell" customModule="Calin" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="55"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QB3-ti-AIU" id="Ws2-km-Uze">
-                <rect key="frame" x="0.0" y="0.0" width="393" height="58"/>
+                <rect key="frame" x="0.0" y="0.0" width="393" height="55"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xw1-VD-j9j">
-                        <rect key="frame" x="20" y="18.666666666666668" width="42" height="21.000000000000004"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xw1-VD-j9j">
+                        <rect key="frame" x="0.0" y="4" width="41.333333333333336" height="46"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FY3-At-aDh">
-                        <rect key="frame" x="20" y="57" width="353" height="1"/>
+                        <rect key="frame" x="0.0" y="54" width="393" height="1"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="nCG-ch-bBZ"/>
                         </constraints>
                     </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="if7-lw-9QM">
-                        <rect key="frame" x="353" y="18" width="20" height="22"/>
+                        <rect key="frame" x="373" y="16.666666666666668" width="20" height="22.000000000000004"/>
                         <color key="tintColor" systemColor="systemRedColor"/>
                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                         <state key="normal" image="minus.circle.fill" catalog="system"/>
@@ -42,19 +42,21 @@
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="if7-lw-9QM" firstAttribute="centerY" secondItem="Ws2-km-Uze" secondAttribute="centerY" id="20l-70-ymP"/>
-                    <constraint firstAttribute="trailing" secondItem="FY3-At-aDh" secondAttribute="trailing" constant="20" id="2sT-7A-40V"/>
-                    <constraint firstItem="FY3-At-aDh" firstAttribute="leading" secondItem="Ws2-km-Uze" secondAttribute="leading" constant="20" id="6Qm-UD-fgN"/>
+                    <constraint firstItem="FY3-At-aDh" firstAttribute="top" secondItem="xw1-VD-j9j" secondAttribute="bottom" constant="4" id="2BG-rt-g7f"/>
+                    <constraint firstAttribute="trailing" secondItem="FY3-At-aDh" secondAttribute="trailing" id="2sT-7A-40V"/>
+                    <constraint firstItem="FY3-At-aDh" firstAttribute="leading" secondItem="Ws2-km-Uze" secondAttribute="leading" id="6Qm-UD-fgN"/>
                     <constraint firstAttribute="bottom" secondItem="FY3-At-aDh" secondAttribute="bottom" id="9Yh-Qy-mrb"/>
-                    <constraint firstItem="xw1-VD-j9j" firstAttribute="leading" secondItem="Ws2-km-Uze" secondAttribute="leading" constant="20" id="QCZ-1L-zAE"/>
-                    <constraint firstAttribute="trailing" secondItem="if7-lw-9QM" secondAttribute="trailing" constant="20" id="afx-h4-Mtd"/>
-                    <constraint firstItem="xw1-VD-j9j" firstAttribute="centerY" secondItem="Ws2-km-Uze" secondAttribute="centerY" id="cTQ-Bx-tTX"/>
+                    <constraint firstItem="xw1-VD-j9j" firstAttribute="top" secondItem="Ws2-km-Uze" secondAttribute="top" constant="4" id="Q93-5Z-LEe"/>
+                    <constraint firstItem="xw1-VD-j9j" firstAttribute="leading" secondItem="Ws2-km-Uze" secondAttribute="leading" id="QCZ-1L-zAE"/>
+                    <constraint firstItem="if7-lw-9QM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="xw1-VD-j9j" secondAttribute="trailing" constant="8" id="YRR-rI-Ubw"/>
+                    <constraint firstAttribute="trailing" secondItem="if7-lw-9QM" secondAttribute="trailing" id="afx-h4-Mtd"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="titleLabel" destination="xw1-VD-j9j" id="zAI-uh-S8V"/>
             </connections>
-            <point key="canvasLocation" x="-144.27480916030532" y="-251.40845070422537"/>
+            <point key="canvasLocation" x="-144.27480916030532" y="-253.16901408450707"/>
         </tableViewCell>
     </objects>
     <resources>
