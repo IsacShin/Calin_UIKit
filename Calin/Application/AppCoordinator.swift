@@ -20,9 +20,14 @@ class AppCoordinator: BaseCoordinator {
     }
     
     private func showHomeView() {
-        let homeCoordinator = HomeCoordinator(navigationController: navigationController)
-        addChild(homeCoordinator)
-        homeCoordinator.start()
+        Task { @MainActor in
+            let repository = SwiftDataTodoDayRepository()
+            let useCase = TodoUseCaseImpl(repository: repository)
+            let homeCoordinator = HomeCoordinator(navigationController: navigationController,
+                                                  useCase: useCase)
+            addChild(homeCoordinator)
+            homeCoordinator.start()
+        }
     }
 }
 

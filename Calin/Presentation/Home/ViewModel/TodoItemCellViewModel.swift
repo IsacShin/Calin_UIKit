@@ -21,10 +21,11 @@ final class TodoItemCellViewModel {
     }
     private(set) var isEditMode: Bool = false
     
-    init(todoDay: TodoDay?) {
-        guard let todoDay = todoDay else {
-            return
-        }
+    private let useCase: TodoUseCase
+    
+    init(useCase: TodoUseCase,
+         todoDay: TodoDay?) {
+        self.useCase = useCase
         self.todoDay = todoDay
     }
     
@@ -42,34 +43,35 @@ final class TodoItemCellViewModel {
         let isCompleted = !todoDay.items[index].isCompleted
         
         // 로컬 데이터 선반영 UI즉시 변경
-        let items = todoDay.items
+        var items = todoDay.items
         items[index].isCompleted = isCompleted
         self.todoDay = TodoDay(id: checkId,
-                              date: todoDay.date,
-                              deviceId: todoDay.deviceId,
-                              items: items)
+                               date: todoDay.date,
+                               items: items,
+                               deviceId: todoDay.deviceId)
         // 비동기로 DB도 업데이트 (화면과 비동기 분리)
         Task {
-            await updateTodoItem(id: checkId, index: index, isCompleted: isCompleted)
+            await updateTodoItem(id: checkId,
+                                 index: index,
+                                 isCompleted: isCompleted)
         }
     }
     
     func updateTodoItem(id: UUID,
                         index: Int,
                         isCompleted: Bool) async {
-        await SwiftDataManager.shared.update(id: id) { (todoDay: TodoDay) in
+        
+        await useCase.update(id: id) { todoDay in
             guard index < todoDay.items.count else {
-                return
+                fatalError("Index out of bounds for todo items")
             }
             todoDay.items[index].isCompleted = isCompleted
+            return todoDay
         }
     }
     
     func fetchTodo(id: UUID? = nil) async {
         guard let id = id else { return }
-        let result = await SwiftDataManager.shared.fetch(with: #Predicate<TodoDay> { $0.id == id }).first
-        if let todo = result {
-            todoDay = todo
-        }
+        todoDay = await useCase.fetchTodo(id: id)
     }
 }

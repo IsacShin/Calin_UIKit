@@ -137,7 +137,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: TodoItemCell = collectionView.dequeue(cellType: TodoItemCell.self, for: indexPath)
         cell.delegate = self
-        cell.configure(vm: TodoItemCellViewModel(todoDay: viewModel?.todoData[safe: indexPath.item]))
+        cell.configure(vm: viewModel?.cellViewModel(at: indexPath.row))
         return cell
     }
     

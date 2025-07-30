@@ -8,17 +8,26 @@
 import UIKit
 
 final class AddCoordinator: BaseCoordinator {
+    
+    private let useCase: TodoUseCase
+    
+    init(navigationController: UINavigationController, useCase: TodoUseCase) {
+        self.useCase = useCase
+        super.init(navigationController: navigationController)
+    }
+    
     override func start() {
         let addViewController = AddViewController()
         addViewController.coordinator = self
-        addViewController.configure(vm: AddViewModel())
+        addViewController.configure(vm: AddViewModel(useCase: useCase))
         navigationController.pushViewController(addViewController, animated: true)
     }
     
     func showEditView(for todoDay: TodoDay?) {
         let addViewController = AddViewController()
         addViewController.coordinator = self
-        addViewController.configure(vm: AddViewModel(todoDay: todoDay))
+        addViewController.configure(vm: AddViewModel(useCase: useCase,
+                                                     todoDay: todoDay))
         navigationController.pushViewController(addViewController, animated: true)
     }
 }

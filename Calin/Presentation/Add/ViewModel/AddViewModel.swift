@@ -26,8 +26,11 @@ final class AddViewModel {
     
     let alertEvent = PassthroughSubject<AlertInfo, Never>()
     private(set) var isEditing: CurrentValueSubject<Bool, Never> = .init(false)
+    private let useCase: TodoUseCase
     
-    init(todoDay: TodoDay? = nil) {
+    init(useCase: TodoUseCase,
+         todoDay: TodoDay? = nil) {
+        self.useCase = useCase
         self.isEditing.send(todoDay != nil)
         self.todoDay = todoDay
         if let todoDay = todoDay {
@@ -45,7 +48,10 @@ final class AddViewModel {
             return
         }
         
-        let todoItem = TodoItem(title: todo, createdAt: selectedDate)
+        let todoItem = TodoItem(id: UUID(),
+                                title: todo,
+                                isCompleted: false,
+                                createdAt: selectedDate)
         todoList.append(todoItem)
     }
     
@@ -63,14 +69,24 @@ final class AddViewModel {
         }
         
         let deviceID = Define.Device.uuid
-        let todoDay = TodoDay(date: selectedDate,
-            deviceId: deviceID,
-            items: todoList.sorted(by: { $0.createdAt > $1.createdAt }))
-
-        await SwiftDataManager.shared.insert(todoDay)
-        alertEvent.send(AlertInfo(message: "일정이 추가되었습니다.",
+        let todoDay = TodoDay(id: UUID(),
+                              date: selectedDate,
+                              items: todoList.sorted(by: { $0.createdAt > $1.createdAt }),
+                              deviceId: deviceID)
+        
+        var isSuccess: Bool = false
+        var msg: String = ""
+        if await useCase.insert(todoDay: todoDay) {
+            msg = "일정이 추가되었습니다."
+            isSuccess = true
+        } else {
+            msg = "다시 시도해주세요."
+            isSuccess = false
+        }
+        
+        alertEvent.send(AlertInfo(message: msg,
                                   actionType: .created,
-                                  isSuccess: true))
+                                  isSuccess: isSuccess))
     }
     
     func updateTodo() async {
@@ -82,21 +98,39 @@ final class AddViewModel {
             return
         }
         
-        await SwiftDataManager.shared.update(id: id) { (todoDay: TodoDay) in
-            todoDay.items = todoList.sorted(by: { $0.createdAt > $1.createdAt })
-            todoDay.date = selectedDate
+        var isSuccess: Bool = false
+        var msg: String = ""
+        if await useCase.update(id: id, updateBlock: { todoDay in
+            todoDay.items = self.todoList.sorted(by: { $0.createdAt > $1.createdAt })
+            todoDay.date = self.selectedDate
+            return todoDay
+        }) {
+            msg = "일정이 수정되었습니다."
+            isSuccess = true
+        } else {
+            msg = "다시 시도해주세요."
+            isSuccess = false
         }
-        alertEvent.send(AlertInfo(message: "일정이 수정되었습니다.",
+        alertEvent.send(AlertInfo(message: msg,
                                   actionType: .updated,
-                                  isSuccess: true))
+                                  isSuccess: isSuccess))
     }
     
     func deleteTodo() async {
         guard let todoDay = todoDay else { return }
-        await SwiftDataManager.shared.delete(todoDay)
-        alertEvent.send(AlertInfo(message: "일정이 삭제되었습니다.",
+        var isSuccess: Bool = false
+        var msg: String = ""
+        if await useCase.delete(todoDay: todoDay) {
+            msg = "일정이 삭제되었습니다."
+            isSuccess = true
+        } else {
+            msg = "다시 시도해주세요."
+            isSuccess = false
+        }
+        
+        alertEvent.send(AlertInfo(message: msg,
                                   actionType: .deleted,
-                                  isSuccess: true))
+                                  isSuccess: isSuccess))
     }
     
 }
