@@ -12,7 +12,7 @@ import SwiftData
 final class TodoDayEntity: @unchecked Sendable {
     @Attribute(.unique) var id: UUID          // 고유 식별자
     var date: Date                            // 할일 날짜
-    @Relationship var items: [TodoItemEntity] // 할일 리스트
+    var items: [TodoItemEntity] // 할일 리스트
     var deviceId: String                      // 디바이스 UUID
 
     init(id: UUID = UUID(), date: Date, items: [TodoItemEntity], deviceId: String) {

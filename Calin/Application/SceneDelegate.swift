@@ -24,12 +24,36 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let navigationController = UINavigationController()
         
         self.window?.rootViewController = navigationController
-        appCoordinator = AppCoordinator(navigationController: navigationController)
+        Task { @MainActor in
+            let repository = SwiftDataTodoDayRepository()
+            let useCase = TodoUseCaseImpl(repository: repository)
+            appCoordinator = AppCoordinator(navigationController: navigationController, useCase: useCase)
+            
+            appCoordinator?.start()
+        }
         
-        appCoordinator?.start()
         
         self.window?.makeKeyAndVisible()
         
+    }
+    
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        guard let url = URLContexts.first?.url else { return }
+        
+        handleDeepLink(url: url)
+    }
+    
+    private func handleDeepLink(url: URL) {
+        print("딥링크로 열린 URL: \(url.absoluteString)")
+
+        // 예: todoapp://todo/1234-5678...
+        guard url.scheme == "todoapp", url.host == "todo" else { return }
+
+        let todoIdString = url.lastPathComponent
+        guard let uuid = UUID(uuidString: todoIdString) else { return }
+
+        // 예시: Todo 상세 화면으로 이동
+        appCoordinator?.openTodoDetail(id: uuid)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

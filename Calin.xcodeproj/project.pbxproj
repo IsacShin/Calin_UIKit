@@ -6,7 +6,41 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		E0B0E7362E3A036A0038E571 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0B0E7352E3A036A0038E571 /* WidgetKit.framework */; };
+		E0B0E7382E3A036A0038E571 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0B0E7372E3A036A0038E571 /* SwiftUI.framework */; };
+		E0B0E7432E3A036B0038E571 /* CalinWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E0B0E7332E3A036A0038E571 /* CalinWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E0B0E7412E3A036B0038E571 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E0D7F7C72E2E1E34005A5CB3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E0B0E7322E3A036A0038E571;
+			remoteInfo = CalinWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E0B0E7122E3A01870038E571 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				E0B0E7432E3A036B0038E571 /* CalinWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		E0B0E72E2E3A028D0038E571 /* CalinWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CalinWidgetExtension.entitlements; sourceTree = "<group>"; };
+		E0B0E7332E3A036A0038E571 /* CalinWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CalinWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		E0B0E7352E3A036A0038E571 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		E0B0E7372E3A036A0038E571 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		E0D7F7CF2E2E1E34005A5CB3 /* Calin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -18,13 +52,52 @@
 			);
 			target = E0D7F7CE2E2E1E34005A5CB3 /* Calin */;
 		};
+		E0B0E7472E3A036B0038E571 /* Exceptions for "CalinWidget" folder in "CalinWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = E0B0E7322E3A036A0038E571 /* CalinWidgetExtension */;
+		};
+		E0B0E7492E3A05D90038E571 /* Exceptions for "Calin" folder in "CalinWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Data/Entity/TodoDayEntity.swift,
+				Data/Repository/SwiftDataTodoDayRepository.swift,
+				Domain/Model/TodoDay.swift,
+				Domain/Repository/TodoDayRepository.swift,
+				Domain/UseCase/TodoUseCase.swift,
+				Domain/UseCase/TodoUseCaseImpl.swift,
+				"Global/Extensions/Date+Extension.swift",
+				Global/Resources/Assets.xcassets,
+				Global/Resources/Font/NanumDaHaengCe.ttf,
+			);
+			target = E0B0E7322E3A036A0038E571 /* CalinWidgetExtension */;
+		};
+		E0B0E7522E3A06CB0038E571 /* Exceptions for "CalinWidget" folder in "Calin" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Extensions/Font+Extension.swift",
+			);
+			target = E0D7F7CE2E2E1E34005A5CB3 /* Calin */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		E0B0E7392E3A036A0038E571 /* CalinWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				E0B0E7522E3A06CB0038E571 /* Exceptions for "CalinWidget" folder in "Calin" target */,
+				E0B0E7472E3A036B0038E571 /* Exceptions for "CalinWidget" folder in "CalinWidgetExtension" target */,
+			);
+			path = CalinWidget;
+			sourceTree = "<group>";
+		};
 		E0D7F7D12E2E1E34005A5CB3 /* Calin */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				E099254A2E2F245800BB5072 /* Exceptions for "Calin" folder in "Calin" target */,
+				E0B0E7492E3A05D90038E571 /* Exceptions for "Calin" folder in "CalinWidgetExtension" target */,
 			);
 			path = Calin;
 			sourceTree = "<group>";
@@ -32,6 +105,15 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		E0B0E7302E3A036A0038E571 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E0B0E7382E3A036A0038E571 /* SwiftUI.framework in Frameworks */,
+				E0B0E7362E3A036A0038E571 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E0D7F7CC2E2E1E34005A5CB3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -42,10 +124,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E0B0E7342E3A036A0038E571 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E0B0E7352E3A036A0038E571 /* WidgetKit.framework */,
+				E0B0E7372E3A036A0038E571 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E0D7F7C62E2E1E34005A5CB3 = {
 			isa = PBXGroup;
 			children = (
+				E0B0E72E2E3A028D0038E571 /* CalinWidgetExtension.entitlements */,
 				E0D7F7D12E2E1E34005A5CB3 /* Calin */,
+				E0B0E7392E3A036A0038E571 /* CalinWidget */,
+				E0B0E7342E3A036A0038E571 /* Frameworks */,
 				E0D7F7D02E2E1E34005A5CB3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				E0D7F7CF2E2E1E34005A5CB3 /* Calin.app */,
+				E0B0E7332E3A036A0038E571 /* CalinWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -61,6 +156,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		E0B0E7322E3A036A0038E571 /* CalinWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E0B0E7442E3A036B0038E571 /* Build configuration list for PBXNativeTarget "CalinWidgetExtension" */;
+			buildPhases = (
+				E0B0E72F2E3A036A0038E571 /* Sources */,
+				E0B0E7302E3A036A0038E571 /* Frameworks */,
+				E0B0E7312E3A036A0038E571 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				E0B0E7392E3A036A0038E571 /* CalinWidget */,
+			);
+			name = CalinWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = CalinWidgetExtension;
+			productReference = E0B0E7332E3A036A0038E571 /* CalinWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		E0D7F7CE2E2E1E34005A5CB3 /* Calin */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E0D7F7E22E2E1E36005A5CB3 /* Build configuration list for PBXNativeTarget "Calin" */;
@@ -68,10 +185,12 @@
 				E0D7F7CB2E2E1E34005A5CB3 /* Sources */,
 				E0D7F7CC2E2E1E34005A5CB3 /* Frameworks */,
 				E0D7F7CD2E2E1E34005A5CB3 /* Resources */,
+				E0B0E7122E3A01870038E571 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				E0B0E7422E3A036B0038E571 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				E0D7F7D12E2E1E34005A5CB3 /* Calin */,
@@ -93,6 +212,9 @@
 				LastSwiftUpdateCheck = 1640;
 				LastUpgradeCheck = 1640;
 				TargetAttributes = {
+					E0B0E7322E3A036A0038E571 = {
+						CreatedOnToolsVersion = 16.4;
+					};
 					E0D7F7CE2E2E1E34005A5CB3 = {
 						CreatedOnToolsVersion = 16.4;
 					};
@@ -113,11 +235,19 @@
 			projectRoot = "";
 			targets = (
 				E0D7F7CE2E2E1E34005A5CB3 /* Calin */,
+				E0B0E7322E3A036A0038E571 /* CalinWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		E0B0E7312E3A036A0038E571 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E0D7F7CD2E2E1E34005A5CB3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -128,6 +258,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		E0B0E72F2E3A036A0038E571 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E0D7F7CB2E2E1E34005A5CB3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -137,7 +274,71 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		E0B0E7422E3A036B0038E571 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E0B0E7322E3A036A0038E571 /* CalinWidgetExtension */;
+			targetProxy = E0B0E7412E3A036B0038E571 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		E0B0E7452E3A036B0038E571 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = CalinWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = PQADV43RTW;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CalinWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CalinWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.isac.Calin.CalinWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E0B0E7462E3A036B0038E571 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = CalinWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = PQADV43RTW;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CalinWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CalinWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.isac.Calin.CalinWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		E0D7F7E32E2E1E36005A5CB3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -330,6 +531,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		E0B0E7442E3A036B0038E571 /* Build configuration list for PBXNativeTarget "CalinWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E0B0E7452E3A036B0038E571 /* Debug */,
+				E0B0E7462E3A036B0038E571 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		E0D7F7CA2E2E1E34005A5CB3 /* Build configuration list for PBXProject "Calin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

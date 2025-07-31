@@ -123,15 +123,28 @@ final class SwiftDataTodoDayRepository: TodoDayRepository {
     }
     
     func update(id: UUID, updateBlock: @escaping (inout TodoDay) -> TodoDay) async -> Bool {
-        guard var entity = await fetchTodo(id: id),
-              let originalEntity = try? context.fetch(FetchDescriptor<TodoDayEntity>(predicate: #Predicate { $0.id == id })).first else {
+        let fetchDescriptor = FetchDescriptor<TodoDayEntity>(predicate: #Predicate { $0.id == id })
+        
+        guard let originalEntity = try? context.fetch(fetchDescriptor).first else {
             print("Object not found.")
             return false
         }
+        
+        // 1. 도메인 객체로 변환
+        var domain = originalEntity.toDomain()
+        
+        // 2. 수정 로직 적용
+        let updated = updateBlock(&domain)
 
-        let updated = updateBlock(&entity)
-
+        // 3. 업데이트 적용
         originalEntity.date = updated.date
+        
+        // 4. 기존 items 모두 삭제 (SwiftData 관계 정리 포함)
+        for item in originalEntity.items {
+            context.delete(item)
+        }
+
+        // 새로운 items 추가
         originalEntity.items = updated.items.map { TodoItemEntity(from: $0) }
 
         return await save()
@@ -157,7 +170,7 @@ extension SwiftDataTodoDayRepository {
     func save() async -> Bool {
         do {
             try context.save()
-            WidgetCenter.shared.reloadTimelines(ofKind: "DoinAppWidget")
+            WidgetCenter.shared.reloadTimelines(ofKind: "CalinWidget")
             return true
         } catch {
             print("Failed to save context: \(error)")
