@@ -113,11 +113,11 @@ final class HomeViewController: UIViewController {
     }
     
     @IBAction func actionGridButtonPressed(_ sender: Any) {
-        viewModel?.actionEvent.send(.actionGridButtonPressed)
+        viewModel?.actionGridButtonPressed()
     }
     
     @IBAction func actionTodayButtonPressed(_ sender: Any) {
-        viewModel?.actionEvent.send(.actionTodayButtonPressed)
+        viewModel?.actionTodayButtonPressed()
     }
     
     @IBAction func actionAddButtonPressed(_ sender: Any) {

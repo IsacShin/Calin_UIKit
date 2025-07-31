@@ -9,31 +9,15 @@ import Combine
 import Foundation
 
 final class HomeViewModel {
-    enum ActionEvent {
-        case actionGridButtonPressed
-        case actionTodayButtonPressed
-    }
     @Published private(set) var todoData: [TodoDay] = []
     @Published private(set) var isGridMode: Bool = true
 
-    private(set) var actionEvent: PassthroughSubject<ActionEvent, Never> = .init()
     private(set) var selectedDate: Date = Date()
     
     private let useCase: TodoUseCase
-    private var cancellables = Set<AnyCancellable>()
     
     init(useCase: TodoUseCase) {
         self.useCase = useCase
-        self.actionEvent
-            .sink { [weak self ] action in
-                switch action {
-                case .actionGridButtonPressed:
-                    self?.isGridMode.toggle()
-                case .actionTodayButtonPressed:
-                    self?.updateSelectedDate(Date())
-                }
-            }
-            .store(in: &cancellables)
     }
     
     func viewWillAppear() {
@@ -59,5 +43,13 @@ final class HomeViewModel {
     func cellViewModel(at index: Int) -> TodoItemCellViewModel? {
         guard let todo = todoData[safe: index] else { return nil }
         return TodoItemCellViewModel(useCase: useCase, todoDay: todo)
+    }
+    
+    func actionGridButtonPressed() {
+        isGridMode.toggle()
+    }
+    
+    func actionTodayButtonPressed() {
+        updateSelectedDate(Date())
     }
 }
